@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Trips.Models.Services;
 
 namespace Trips
 {
@@ -23,6 +24,7 @@ namespace Trips
 
             services.AddControllersWithViews();
 
+            services.AddTransient<ITripService, TripService>();
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

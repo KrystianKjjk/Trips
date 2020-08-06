@@ -23,8 +23,16 @@ namespace Trips.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var allTrips = _tripService.GetAllTrips();
-            return Ok(allTrips);
+            try
+            {
+                //throw new Exception();
+                var allTrips = _tripService.GetAllTrips();
+                return Ok(allTrips);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // GET api/values/5

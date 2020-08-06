@@ -5,7 +5,7 @@ using Trips.Models.Data;
 
 namespace Trips.Models.Services
 {
-    public class TripService :ITripService
+    public class TripService : ITripService
     {
         public TripService()
         {
@@ -13,12 +13,20 @@ namespace Trips.Models.Services
 
         public void AddTrip(Trip trip)
         {
+            var maxId = TripsData.Trips.Max(t => t.Id);
+            trip.Id = maxId + 1;
             TripsData.Trips.Add(trip);
         }
 
         public void Delete(int id)
         {
-            TripsData.Trips.Remove(new Trip());
+            var trip = TripsData.Trips.FirstOrDefault(t => t.Id == id);
+
+            if(trip != null)
+            {
+                TripsData.Trips.Remove(trip);
+
+            }
         }
 
         public List<Trip> GetAllTrips()
@@ -35,7 +43,7 @@ namespace Trips.Models.Services
         {
             var oldTrip = TripsData.Trips.FirstOrDefault(t => t.Id == id);
 
-            if(oldTrip != null)
+            if (oldTrip != null)
             {
                 oldTrip.Name = updatedTrip.Name;
                 oldTrip.Description = updatedTrip.Description;
